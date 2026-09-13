@@ -1,6 +1,7 @@
 package com.github.bernabaris.dunningmanagement.controller;
 
 import com.github.bernabaris.dunningmanagement.dto.DunningLevelResponse;
+import com.github.bernabaris.dunningmanagement.dto.DunningSummaryResponse;
 import com.github.bernabaris.dunningmanagement.entity.DunningAction;
 import com.github.bernabaris.dunningmanagement.repository.DunningProcedureRepository;
 import com.github.bernabaris.dunningmanagement.service.DunningService;
@@ -32,5 +33,13 @@ public class DunningController {
     public DunningLevelResponse getDunningLevelFromProcedure(@PathVariable Long invoiceId) {
         String level = dunningProcedureRepository.getDunningLevel(invoiceId);
         return new DunningLevelResponse(invoiceId,level);
+    }
+
+    @GetMapping("/summary/{customerId}")
+    public DunningSummaryResponse getCustomerDunningSummary(
+            @PathVariable Long customerId) {
+
+        return dunningProcedureRepository
+                .getCustomerDunningSummary(customerId);
     }
 }
